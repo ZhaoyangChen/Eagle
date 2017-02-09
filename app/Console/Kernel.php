@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\GetCityDisplayInfoJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\GetCitiesInfo',
     ];
 
     /**
@@ -36,5 +37,13 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         require base_path('routes/console.php');
+    }
+
+	/**
+     * 鹰眼捕猎行动
+     */
+    protected function hunt() {
+        $job = (new GetCityDisplayInfoJob('shanghai'))->onQueue('hunt');
+        dispatch($job);
     }
 }
