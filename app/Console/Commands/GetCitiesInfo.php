@@ -434,7 +434,8 @@ class GetCitiesInfo extends Command
             }
 
             $obj = new Eagle_city();
-            $obj->id = $city . '-' . date('Y-m-d', strtotime('-1 day'));
+            $obj->_id = $city . '-' . date('Y-m-d', strtotime('-1 day'));
+            $obj->city = $city;
             $obj->totalClick = intval(str_replace(',', '', $numberNodes[0]->plaintext));
             $obj->totalDisplay = intval(str_replace(',', '', $numberNodes[1]->plaintext));
             $obj->save();
