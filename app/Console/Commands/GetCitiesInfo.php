@@ -424,7 +424,7 @@ class GetCitiesInfo extends Command
         foreach ($this->cities as $city) {
             $target = "http://zhanzhang.baidu.com/keywords/index?site=http://{$city}.baixing.com/";
             var_dump($city);
-            $html = self::stable_touch($target, false, $context);
+            $html = self::stable_touch($target, $context);
             if (!$html) {
                 continue;
             }
