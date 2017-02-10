@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->command('eagle:hunt')->daily();
-        $schedule->command('eagle:tick')->everyMinute();
+        // $schedule->command('eagle:tick')->everyMinute();
     }
 
     /**
