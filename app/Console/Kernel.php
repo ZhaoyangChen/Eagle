@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\GetCitiesInfo',
+        'App\Console\Commands\MinuteTick',
     ];
 
     /**
@@ -29,6 +30,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->command('eagle:hunt')->daily();
+        $schedule->command('eagle:tick')->everyMinute();
     }
 
     /**
