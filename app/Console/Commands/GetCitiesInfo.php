@@ -425,7 +425,7 @@ class GetCitiesInfo extends Command
             $target = "http://zhanzhang.baidu.com/keywords/index?site=http://{$city}.baixing.com/";
             var_dump($city);
             sleep(2);
-            $html = file_get_html($target, false, $context);
+            $html = self::stable_touch($target, false, $context);
             $numberNodes = $html->find('.key-number');
 
             if (count($numberNodes) !== 2) {
@@ -439,6 +439,18 @@ class GetCitiesInfo extends Command
             $obj->totalClick = intval(str_replace(',', '', $numberNodes[0]->plaintext));
             $obj->totalDisplay = intval(str_replace(',', '', $numberNodes[1]->plaintext));
             $obj->save();
+        }
+    }
+
+    protected static function stable_touch($target, $context, $times = 1) {
+        if ($times > 3) {
+            \Log::info('http请求失败, 重试超过三次, ' . $target);
+            return false;
+        }
+        try {
+            return file_get_html($target, false, $context);
+        } catch (\Exception $e) {
+           self::stable_touch($target, $context, $times + 1);
         }
     }
 }
