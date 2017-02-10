@@ -424,8 +424,11 @@ class GetCitiesInfo extends Command
         foreach ($this->cities as $city) {
             $target = "http://zhanzhang.baidu.com/keywords/index?site=http://{$city}.baixing.com/";
             var_dump($city);
-            sleep(2);
             $html = self::stable_touch($target, false, $context);
+            if (!$html) {
+                continue;
+            }
+
             $numberNodes = $html->find('.key-number');
 
             if (count($numberNodes) !== 2) {
@@ -448,6 +451,7 @@ class GetCitiesInfo extends Command
             return false;
         }
         try {
+            sleep(1);
             return file_get_html($target, false, $context);
         } catch (\Exception $e) {
            self::stable_touch($target, $context, $times + 1);
