@@ -442,6 +442,7 @@ class GetCitiesInfo extends Command
             $obj->city = $city;
             $obj->totalClick = intval(str_replace(',', '', $numberNodes[0]->plaintext));
             $obj->totalDisplay = intval(str_replace(',', '', $numberNodes[1]->plaintext));
+            $obj->date = date('Y-m-d', strtotime('-1 day'));
             $obj->save();
         }
     }
