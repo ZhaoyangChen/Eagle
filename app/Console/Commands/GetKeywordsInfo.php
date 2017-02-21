@@ -78,7 +78,13 @@ class GetKeywordsInfo extends Command
                         $node->total_rank = $keyword->total_rank;
                         $node->average_rank = $keyword->average_rank;
                         $node->detail = $urlRes->list;
-                        $node->save(['upsert'=>true]);
+                        try {
+                            $node->save();
+                        } catch(\Exception $e) {
+                            $msg = $e->getMessage()
+                            var_dump("  捕捉到异常 {$msg}");
+                        }
+
                     }
                 }
                 if ($nextCity) {
