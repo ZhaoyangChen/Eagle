@@ -66,7 +66,7 @@ class GetKeywordsInfo extends Command
                         $id = $cityEnglishName . '-' . date('Y-m-d', strtotime('-1 day')) . '-' . $keyword->query;
                         if (Eagle_keyword::where('_id', $id)) {
                             var_dump(" 注意, 此条重复");
-                            break;
+                            continue;
                         }
                         // 详细URL
                         $url2 = "http://zhanzhang.baidu.com/keywords/pagelist?site=http://{$cityEnglishName}.baixing.com/&range=yesterday&page={$page}&pagesize=100&". urlencode("keyword={$keyword->query}");
