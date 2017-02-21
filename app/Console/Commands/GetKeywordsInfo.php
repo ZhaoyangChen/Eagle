@@ -81,7 +81,7 @@ class GetKeywordsInfo extends Command
                         try {
                             $node->save();
                         } catch(\Exception $e) {
-                            $msg = $e->getMessage()
+                            $msg = $e->getMessage();
                             var_dump("  捕捉到异常 {$msg}");
                         }
 
