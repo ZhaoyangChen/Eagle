@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\GetCitiesInfo',
+        'App\Console\Commands\GetKeywordsInfo',
         'App\Console\Commands\MinuteTick',
     ];
 
