@@ -51,7 +51,13 @@ class GetKeywordsInfo extends Command
         $cities = CityListController::citiesArray();
         foreach ($cities as $cityEnglishName => $cityName) {
             $nextCity = false;
-            for($page = 1; $page < 500; $page++) {
+            // 断点
+            if ($cityEnglishName == 'beijing') {
+                $page = 20;
+            } else {
+                $page = 1;
+            }
+            for(; $page < 500; $page++) {
                 var_dump("{$cityName}第{$page}页");
                 $url = "http://zhanzhang.baidu.com/keywords/keywordlist?site=http://{$cityEnglishName}.baixing.com/&range=yesterday&page={$page}&pagesize=100";
                 $res = self::stable_touch($url, $context);
@@ -69,6 +75,9 @@ class GetKeywordsInfo extends Command
                         $url2 = "http://zhanzhang.baidu.com/keywords/pagelist?site=http://{$cityEnglishName}.baixing.com/&range=yesterday&page={$page}&pagesize=100&". urlencode("keyword={$keyword->query}");
                         $urlRes = self::stable_touch($url2, $context);
                         $urlRes = json_decode($urlRes);
+                        if (!$urlRes) {
+                            continue;
+                        }
                         $node = new Eagle_keyword();
                         $node->_id = $id;
                         $node->city = $cityEnglishName;
@@ -83,7 +92,6 @@ class GetKeywordsInfo extends Command
                             $node->save();
                         } catch(\Exception $e) {
                             $msg = $e->getMessage();
-                            $node->update();
                             var_dump("  捕捉到异常 {$msg}");
                         }
 
