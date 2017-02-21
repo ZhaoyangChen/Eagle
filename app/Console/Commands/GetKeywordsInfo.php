@@ -76,7 +76,7 @@ class GetKeywordsInfo extends Command
                         $node->total_rank = $keyword->total_rank;
                         $node->average_rank = $keyword->average_rank;
                         $node->detail = $urlRes->list;
-                        $node->save(['upsert' => true]);
+                        $node->update([], ['upsert' => true]);
                     }
                 }
                 if ($nextCity) {
