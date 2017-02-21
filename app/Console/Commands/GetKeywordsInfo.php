@@ -64,10 +64,7 @@ class GetKeywordsInfo extends Command
                         }
                         var_dump("  词条 {$keyword->query}");
                         $id = $cityEnglishName . '-' . date('Y-m-d', strtotime('-1 day')) . '-' . $keyword->query;
-                        if (Eagle_keyword::where('_id', $id)) {
-                            var_dump(" 注意, 此条重复");
-                            continue;
-                        }
+
                         // 详细URL
                         $url2 = "http://zhanzhang.baidu.com/keywords/pagelist?site=http://{$cityEnglishName}.baixing.com/&range=yesterday&page={$page}&pagesize=100&". urlencode("keyword={$keyword->query}");
                         $urlRes = self::stable_touch($url2, $context);
@@ -81,7 +78,7 @@ class GetKeywordsInfo extends Command
                         $node->total_rank = $keyword->total_rank;
                         $node->average_rank = $keyword->average_rank;
                         $node->detail = $urlRes->list;
-                        $node->update([], ['upsert' => true]);
+                        $node->save(['upsert'=>true]);
                     }
                 }
                 if ($nextCity) {
