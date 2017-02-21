@@ -71,6 +71,7 @@ class GetKeywordsInfo extends Command
                         $urlRes = json_decode($urlRes);
                         $node = new Eagle_keyword();
                         $node->_id = $id;
+                        $node->city = $cityEnglishName;
                         $node->date = date('Y-m-d', strtotime('-1 day'));
                         $node->word = $keyword->query;
                         $node->total_display = $keyword->total_display;
@@ -82,6 +83,7 @@ class GetKeywordsInfo extends Command
                             $node->save();
                         } catch(\Exception $e) {
                             $msg = $e->getMessage();
+                            $node->update();
                             var_dump("  捕捉到异常 {$msg}");
                         }
 
