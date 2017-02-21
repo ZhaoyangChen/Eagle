@@ -62,6 +62,7 @@ class GetKeywordsInfo extends Command
                             $nextCity = true;
                             break;
                         }
+                        var_dump("  词条 {$keyword->query}");
                         // 详细URL
                         $url2 = "http://zhanzhang.baidu.com/keywords/pagelist?site=http://{$cityEnglishName}.baixing.com/&range=yesterday&page={$page}&pagesize=100&". urlencode("keyword={$keyword->query}");
                         $urlRes = self::stable_touch($url2, $context);
