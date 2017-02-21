@@ -52,6 +52,7 @@ class GetKeywordsInfo extends Command
         foreach ($cities as $cityEnglishName => $cityName) {
             $nextCity = false;
             for($page = 1; $page < 500; $page++) {
+                var_dump("{$cityName}第{$page}页");
                 $url = "http://zhanzhang.baidu.com/keywords/keywordlist?site=http://{$cityEnglishName}.baixing.com/&range=yesterday&page={$page}&pagesize=100";
                 $res = self::stable_touch($url, $context);
                 if ($res) {
