@@ -443,6 +443,10 @@ class GetCitiesInfo extends Command
             $obj->totalClick = intval(str_replace(',', '', $numberNodes[0]->plaintext));
             $obj->totalDisplay = intval(str_replace(',', '', $numberNodes[1]->plaintext));
             $obj->date = date('Y-m-d', strtotime('-1 day'));
+            $former = Eagle_city::find($obj->_id);
+            if ($former) {
+                $former->delete();
+            }
             $obj->save();
         }
     }
