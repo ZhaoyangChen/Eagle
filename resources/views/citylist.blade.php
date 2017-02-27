@@ -20,11 +20,15 @@
                 @endforeach
             </tr>
         </thead>
-        @foreach($cityInfo as $info)
+        @foreach($cities as $city => $cityName)
                 <tr>
-                    <td>{{$info['name']}}</td>
-                    @foreach($info['data'] as $data)
-                        <td>{{$data->totalClick}} / {{$data->totalDisplay}}</td>
+                    <td>{{$cityName}}</td>
+                    @foreach($dateHeads as $dateHead)
+                        @if(isset($cityInfo[$city][$dateHead]))
+                            <td>{{$cityInfo[$city][$dateHead]->totalClick}} / {{$cityInfo[$city][$dateHead]->totalDisplay}}</td>
+                        @else
+                            <td>未知</td>
+                        @endif
                     @endforeach
                 </tr>
         @endforeach

@@ -12,9 +12,10 @@ class CityListController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index() {
+        $cities = self::citiesArray();
         $dateHeads = $this->dateHeadArray(7);
-        $cityInfo = $this->structuredData();
-        return view('citylist', ['dateHeads' => $dateHeads, 'cityInfo' => $cityInfo]);
+        $cityInfo = $this->structuredData($cities);
+        return view('citylist', ['dateHeads' => $dateHeads, 'cityInfo' => $cityInfo, 'cities' => $cities]);
     }
 
     protected function dateHeadArray($num) {
@@ -25,14 +26,14 @@ class CityListController extends BaseController
         return $res;
     }
 
-    protected function structuredData() {
-        $cities = self::citiesArray();
+    protected function structuredData($cities) {
         $res = [];
         foreach ($cities as $cityEnglishName => $cityName) {
-            $res[$cityEnglishName] = [
-                'name'  =>  $cityName,
-                'data'  =>  Eagle_city::where('city', $cityEnglishName)->get(),
-            ];
+            if ($data = Eagle_city::where('city', $cityEnglishName)->get()) {
+                foreach ($data as $d) {
+                    $res[$cityEnglishName][$d->date] = $d;
+                }
+            }
         }
         return $res;
     }
