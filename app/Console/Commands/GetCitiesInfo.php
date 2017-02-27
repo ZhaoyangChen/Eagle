@@ -423,7 +423,7 @@ class GetCitiesInfo extends Command
 
         $context = stream_context_create($opts);
         foreach ($this->cities as $city) {
-            $target = "http://zhanzhang.baidu.com/keywords/index?site=http://{$city}.baixing.com/";
+            $target = "http://zhanzhang.baidu.com/keywords/index?range=yesterday&site=http://{$city}.baixing.com/";
             var_dump($city);
             $html = self::stable_touch($target, $context);
             if (!$html) {
