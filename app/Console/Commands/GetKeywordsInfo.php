@@ -52,11 +52,11 @@ class GetKeywordsInfo extends Command
         foreach ($cities as $cityEnglishName => $cityName) {
             $nextCity = false;
             // 断点
-//            if ($cityEnglishName == 'beijing') {
-//                $page = 20;
-//            } else {
-//                $page = 1;
-//            }
+            if ($cityEnglishName == 'beijing') {
+                $page = 1;
+            } else {
+                $page = 1;
+            }
             for(; $page < 500; $page++) {
                 var_dump("{$cityName}第{$page}页");
                 $url = "http://zhanzhang.baidu.com/keywords/keywordlist?site=http://{$cityEnglishName}.baixing.com/&range=yesterday&page={$page}&pagesize=100";
