@@ -64,7 +64,7 @@ class GetKeywordsInfo extends Command
                 if ($res) {
                     $res = json_decode($res);
                     foreach ($res->list as $keyword) {
-                        if (intval($keyword->total_display) < 1) {
+                        if (intval($keyword->total_click) <= 1) {
                             $nextCity = true;
                             break;
                         }
