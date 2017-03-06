@@ -41,6 +41,7 @@ class CityListController extends BaseController
 
     public static function citiesArray() {
         return [
+            'www'   =>  'www站',
             'beijing' => '北京',
             'guangzhou' => '广州',
             'shanghai' => '上海',
@@ -408,7 +409,6 @@ class CityListController extends BaseController
             'lingshui' => '陵水',
             'qiongzhong' => '琼中',
             'tunchang' => '屯昌',
-            'beikezhan' => '北客站',
         ];
     }
 }

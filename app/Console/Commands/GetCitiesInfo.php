@@ -35,6 +35,7 @@ class GetCitiesInfo extends Command
     {
 
         $this->cities = [
+            'www',
             'beijing',
             'guangzhou',
             'shanghai',
@@ -402,7 +403,6 @@ class GetCitiesInfo extends Command
             'lingshui',
             'qiongzhong',
             'tunchang',
-            'beikezhan',
         ];
         parent::__construct();
     }
