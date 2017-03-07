@@ -50,6 +50,8 @@ class GetKeywordsInfo extends Command
         $multi = 10;
 
         $cities = CityListController::citiesArray();
+        // 断点
+        $cities = array_slice($cities, 203);
         foreach ($cities as $cityEnglishName => $cityName) {
             $nextCity = false;
             for($page = 1; $page < 500; $page++) {
@@ -59,6 +61,9 @@ class GetKeywordsInfo extends Command
                 if ($res) {
                     $res = json_decode($res);
                     $count = count($res->list);
+                    if (!($res->list)) {
+                        break;
+                    }
                     if($res->list[0]->total_click < 2) {
                         $nextCity = true;
                         break;
@@ -79,6 +84,8 @@ class GetKeywordsInfo extends Command
                             }
                         }
                     }
+                } else {
+                    break;
                 }
             }
             if ($nextCity) {
