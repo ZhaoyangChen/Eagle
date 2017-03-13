@@ -102,10 +102,10 @@ class GetKeywordsInfo extends Command
         $node->city = $cityEnglishName;
         $node->date = date('Y-m-d', strtotime('-1 day'));
         $node->word = $keyword->query;
-        $node->total_display = $keyword->total_display;
-        $node->total_click = $keyword->total_click;
-        $node->total_rank = $keyword->total_rank;
-        $node->average_rank = $keyword->average_rank;
+        $node->total_display = floatval($keyword->total_display);
+        $node->total_click = floatval($keyword->total_click);
+        $node->total_rank = floatval($keyword->total_rank);
+        $node->average_rank = floatval($keyword->average_rank);
         $node->detail = $urlRes->list;
         try {
             $node->save();
