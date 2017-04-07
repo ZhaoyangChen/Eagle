@@ -120,20 +120,34 @@ class GetKeywordsInfo extends Command
     protected static function urlInsert(array $list, $city, $keyword) {
         if (!empty($list)) {
             foreach ($list as $l) {
-                $node = new Eagle_url();
-                $node->_id = $keyword->query . '&' .$l->url;
-                $node->url = $l->url;
-                $node->city = $city;
-                $node->date = date('Y-m-d', strtotime('-1 day'));
-                $node->word = $keyword->query;
-                $node->total_display = floatval($l->total_display);
-                $node->total_click = floatval($l->total_click);
-                $node->total_rank = floatval($l->total_rank);
-                $node->average_rank = floatval($l->average_rank);
-                $node->click_rate = floatval($l->click_rate);
-                $node->save();
+                if ($node = Eagle_url::find($keyword->query . '&' .$l->url)) {
+                    $node->total_display = (floatval($l->total_display) + $node->total_display) / 2;
+                    $node->total_click = (floatval($l->total_click) + $node->total_click) / 2;
+                    $node->total_rank = (floatval($l->total_rank) + $node->total_rank) / 2;
+                    $node->average_rank = (floatval($l->average_rank) + $node->average_rank) / 2;
+                    $node->click_rate = (floatval($l->click_rate) + $node->click_rate) / 2;
+                    $node->update();
+                } else {
+                    $node = new Eagle_url();
+                    $node->_id = $keyword->query . '&' .$l->url;
+                    $node->url = $l->url;
+                    $node->category = self::getCategory($l->url);
+                    $node->city = $city;
+                    $node->word = $keyword->query;
+                    $node->total_display = floatval($l->total_display);
+                    $node->total_click = floatval($l->total_click);
+                    $node->total_rank = floatval($l->total_rank);
+                    $node->average_rank = floatval($l->average_rank);
+                    $node->click_rate = floatval($l->click_rate);
+                    $node->save();
+                }
             }
         }
+    }
+
+    protected static function getCategory($url) {
+        preg_match('/baixing\.com\/([a-z]*)\//', $url, $match);
+        return isset($match[1]) ? $match[1] : null;
     }
 
     protected static function stable_touch($target, $context, $times = 1) {
