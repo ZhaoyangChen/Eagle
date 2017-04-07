@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Eagle_keyword;
+use App\Eagle_url;
 use App\Http\Controllers\CityListController;
 use Illuminate\Console\Command;
 
@@ -108,10 +109,29 @@ class GetKeywordsInfo extends Command
         $node->average_rank = floatval($keyword->average_rank);
         $node->detail = $urlRes->list;
         try {
+            self::urlInsert(json_decode($urlRes->list), $cityEnglishName, $keyword);
             $node->save();
         } catch(\Exception $e) {
             $msg = $e->getMessage();
             var_dump("  捕捉到异常 {$msg}");
+        }
+    }
+
+    protected static function urlInsert(array $list, $city, $keyword) {
+        if (!empty($list)) {
+            foreach ($list as $l) {
+                $node = new Eagle_url();
+                $node->_id = $keyword->query . $l->url;
+                $node->city = $city;
+                $node->date = date('Y-m-d', strtotime('-1 day'));
+                $node->word = $keyword->query;
+                $node->total_display = floatval($l->total_display);
+                $node->total_click = floatval($l->total_click);
+                $node->total_rank = floatval($l->total_rank);
+                $node->average_rank = floatval($l->average_rank);
+                $node->click_rate = floatval($l->click_rate);
+                $node->save();
+            }
         }
     }
 
