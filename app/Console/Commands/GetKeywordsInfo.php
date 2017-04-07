@@ -122,6 +122,7 @@ class GetKeywordsInfo extends Command
             foreach ($list as $l) {
                 $node = new Eagle_url();
                 $node->_id = $keyword->query . '&' .$l->url;
+                $node->url = $l->url;
                 $node->city = $city;
                 $node->date = date('Y-m-d', strtotime('-1 day'));
                 $node->word = $keyword->query;
