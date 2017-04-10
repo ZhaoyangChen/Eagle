@@ -23,6 +23,7 @@ class pushHaojing extends Command
     protected $description = 'Command description';
 
     const HAOJING_URL = 'http://www.baixing.com/mkt/eaglelink';
+    const EAGLE_SECRET = 'baixing_eagle';
 
     /**
      * Create a new command instance.
@@ -68,13 +69,15 @@ class pushHaojing extends Command
                     'city'      =>  $cityId,
                     'link'      =>  serialize($link)
                 ];
+                $params['sign'] = md5(implode('', $params) . self::EAGLE_SECRET);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+                $response = curl_exec($ch);//接收返回信息
+                if(curl_errno($ch)){//出错则显示错误信息
+                    echo curl_error($ch);
+                }
+                var_dump($response);
             }
-            $response = curl_exec($ch);//接收返回信息
-            if(curl_errno($ch)){//出错则显示错误信息
-                echo curl_error($ch);
-            }
-           var_dump($response);
+
             sleep(1);
         }
         curl_close($ch); //关闭curl链接
