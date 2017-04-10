@@ -60,6 +60,9 @@ class pushHaojing extends Command
                 $link = [];
                 if ($res) {
                     foreach ($res as $r) {
+                        if (strpos('.html', $r->url) !== false) {
+                            continue;
+                        }
                         $link[$r->url] = $r->word;
                     }
                 }
