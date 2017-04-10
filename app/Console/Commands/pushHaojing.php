@@ -80,8 +80,6 @@ class pushHaojing extends Command
                 }
                 var_dump($response);
             }
-
-            sleep(1);
         }
         curl_close($ch); //关闭curl链接
     }
