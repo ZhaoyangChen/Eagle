@@ -51,13 +51,18 @@ class pushHaojing extends Command
 
         foreach ($cities as $cityId => $cityName) {
             foreach ($categories as $categoryId) {
-                $res = Eagle_url::whereBetween('average_rank', [5, 50])->orderBy('total_click', 'desc')->take(20)->get();
+                var_dump($cityId . '-' .$categoryId);
+                $res = Eagle_url::where('city', $cityId)->where('category', $categoryId)->whereBetween('average_rank', [5, 50])
+                    ->orderBy('total_click', 'desc')
+                    ->take(20)
+                    ->get();
                 $link = [];
                 if ($res) {
                     foreach ($res as $r) {
                         $link[$r->url] = $r->word;
                     }
                 }
+                var_dump($link);
                 $params = [
                     'category'  =>  $categoryId,
                     'city'      =>  $cityId,
@@ -67,9 +72,9 @@ class pushHaojing extends Command
             }
             $response = curl_exec($ch);//接收返回信息
             if(curl_errno($ch)){//出错则显示错误信息
-                print curl_error($ch);
+                echo curl_error($ch);
             }
-            print $response;
+           var_dump($response);
             sleep(1);
         }
         curl_close($ch); //关闭curl链接
