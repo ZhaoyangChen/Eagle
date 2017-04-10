@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\GetCitiesInfo',
         'App\Console\Commands\GetKeywordsInfo',
         'App\Console\Commands\MinuteTick',
+        'App\Console\Commands\pushHaojing',
     ];
 
     /**
