@@ -119,28 +119,27 @@ class GetKeywordsInfo extends Command
 
     protected static function urlInsert(array $list, $city, $keyword) {
         if (!empty($list)) {
-            foreach ($list as $l) {
-                if ($node = Eagle_url::find($keyword->query . '&' .$l->url)) {
-                    $node->total_display = (floatval($l->total_display) + $node->total_display) / 2;
-                    $node->total_click = (floatval($l->total_click) + $node->total_click) / 2;
-                    $node->total_rank = (floatval($l->total_rank) + $node->total_rank) / 2;
-                    $node->average_rank = (floatval($l->average_rank) + $node->average_rank) / 2;
-                    $node->click_rate = (floatval($l->click_rate) + $node->click_rate) / 2;
-                    $node->update();
-                } else {
-                    $node = new Eagle_url();
-                    $node->_id = $keyword->query . '&' .$l->url;
-                    $node->url = $l->url;
-                    $node->category = self::getCategory($l->url);
-                    $node->city = $city;
-                    $node->word = $keyword->query;
-                    $node->total_display = floatval($l->total_display);
-                    $node->total_click = floatval($l->total_click);
-                    $node->total_rank = floatval($l->total_rank);
-                    $node->average_rank = floatval($l->average_rank);
-                    $node->click_rate = floatval($l->click_rate);
-                    $node->save();
-                }
+            $l = current($list);
+            if ($node = Eagle_url::find($keyword->query . '&' .$l->url)) {
+                $node->total_display = (floatval($l->total_display) + $node->total_display) / 2;
+                $node->total_click = (floatval($l->total_click) + $node->total_click) / 2;
+                $node->total_rank = (floatval($l->total_rank) + $node->total_rank) / 2;
+                $node->average_rank = (floatval($l->average_rank) + $node->average_rank) / 2;
+                $node->click_rate = (floatval($l->click_rate) + $node->click_rate) / 2;
+                $node->update();
+            } else {
+                $node = new Eagle_url();
+                $node->_id = $keyword->query . '&' .$l->url;
+                $node->url = $l->url;
+                $node->category = self::getCategory($l->url);
+                $node->city = $city;
+                $node->word = $keyword->query;
+                $node->total_display = floatval($l->total_display);
+                $node->total_click = floatval($l->total_click);
+                $node->total_rank = floatval($l->total_rank);
+                $node->average_rank = floatval($l->average_rank);
+                $node->click_rate = floatval($l->click_rate);
+                $node->save();
             }
         }
     }
