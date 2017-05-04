@@ -33,6 +33,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('eagle:hunt')->dailyAt('10:00');
         $schedule->command('eagle:eat')->dailyAt('8:00');
+        $schedule->command('eagle:haojing')->weekly();
 
         // $schedule->command('eagle:tick')->everyMinute();
     }
