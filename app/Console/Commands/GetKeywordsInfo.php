@@ -149,7 +149,7 @@ class GetKeywordsInfo extends Command
         return isset($match[1]) ? $match[1] : null;
     }
 
-    protected static function stable_touch($target, $context, $times = 1) {
+    public static function stable_touch($target, $context, $times = 1) {
         if ($times > 3) {
             \Log::info('http请求失败, 重试超过三次, ' . $target);
             return false;

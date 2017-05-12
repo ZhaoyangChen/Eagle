@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\GetKeywordsInfo',
         'App\Console\Commands\MinuteTick',
         'App\Console\Commands\pushHaojing',
+        'App\Console\Commands\GetBaiduIndex',
     ];
 
     /**
@@ -33,9 +34,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('eagle:hunt')->dailyAt('10:00');
         $schedule->command('eagle:eat')->dailyAt('8:00');
-        $schedule->command('eagle:haojing')->weekly();
-
-        // $schedule->command('eagle:tick')->everyMinute();
+        $schedule->command('eagle:getBaiduIndex')->dailyAt('7:00');
     }
 
     /**
