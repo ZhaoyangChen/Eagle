@@ -19,8 +19,9 @@ class IndexListController extends BaseController
 
     protected function getStamps() {
         $res = [];
-        for($i = 1; $i <= 30; $i++) {
-            $res[] = strtotime("-{$i} day");
+        $time = strtotime(date('Y-m-d'));
+        for($i = 0; $i < 30; $i++) {
+            $res[] = $time - 86400 * $i;
         }
         return $res;
     }
