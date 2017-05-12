@@ -61,7 +61,9 @@ class GetBaiduIndex extends Command
                     $node->_id = $domain . '-' . $rule;
                     $node->domain = $domain;
                     $node->rule = $rule;
-                    $node->indexs = $res_obj;
+                    $node->indexs = $res_obj->list_new;
+                    $node->updatedTime = time();
+                    dd($node);
                     try {
                         $node->update();
                     } catch (\Exception $e) {
