@@ -83,7 +83,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="/citylist/">城市统计</a>
+                    <a href="/citylist/">访问统计</a>
+                    <a href="/indexlist/">索引统计</a>
                 </div>
             </div>
         </div>

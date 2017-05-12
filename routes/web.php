@@ -19,3 +19,5 @@ Route::get('/', function () {
 Route::get('/test/', 'TestController@test');
 
 Route::get('/citylist/', 'CityListController@index');
+
+Route::get('/indexlist/', 'IndexListController@index');
