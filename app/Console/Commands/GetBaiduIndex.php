@@ -63,11 +63,11 @@ class GetBaiduIndex extends Command
                     $node->rule = $rule;
                     $node->indexs = $res_obj->list_new;
                     $node->updatedTime = time();
-                    try {
-                        $node->update();
-                    } catch (\Exception $e) {
-                        $node->save();
+                    $former = Eagle_index::find($node->_id);
+                    if ($former) {
+                        $former->delete();
                     }
+                    $node->save();
                 }
             } catch (\Exception $e) {
                 continue;
