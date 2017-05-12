@@ -61,7 +61,10 @@ class GetBaiduIndex extends Command
                     $node->_id = $domain . '-' . $rule;
                     $node->domain = $domain;
                     $node->rule = $rule;
-                    $node->indexs = $res_obj->list_new;
+                    $node->indexs = [];
+                    foreach ($res_obj->list_new as $arr) {
+                        $node->indexs[$arr['ctime']] = intval($arr['total']);
+                    }
                     $node->updatedTime = time();
                     $former = Eagle_index::find($node->_id);
                     if ($former) {
