@@ -26,7 +26,16 @@ class IndexListController extends BaseController
     }
 
     protected function getIndex() {
-        return Eagle_index::all();
+        $res = [];
+        $data =  Eagle_index::all();
+        $obj = [];
+        foreach ($data as $index) {
+            foreach ($index->indexs as $i) {
+                $obj[$i['ctime']] = intval($i['total']);
+            }
+            $res[] = $obj;
+        }
+        return $res;
     }
 
 }
