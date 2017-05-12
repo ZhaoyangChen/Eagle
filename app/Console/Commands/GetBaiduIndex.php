@@ -63,7 +63,6 @@ class GetBaiduIndex extends Command
                     $node->rule = $rule;
                     $node->indexs = $res_obj->list_new;
                     $node->updatedTime = time();
-                    dd($node);
                     try {
                         $node->update();
                     } catch (\Exception $e) {
