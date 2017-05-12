@@ -21,6 +21,19 @@
             @endforeach
             </tr>
         </thead>
+        @foreach($indexs as $index)
+                <tr>
+                    <td>{{$index->domain}}</td>
+                    <td>{{$index->rule}}</td>
+                    @foreach($stamps as $stamp)
+                        @if(isset($index->indexs[$stamp]))
+                            <td>{{$index->indexs[$stamp]}}</td>
+                        @else
+                            <td>未知</td>
+                        @endif
+                    @endforeach
+                </tr>
+        @endforeach
     </table>
     </body>
 </html>
