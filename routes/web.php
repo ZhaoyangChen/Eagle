@@ -21,3 +21,7 @@ Route::get('/test/', 'TestController@test');
 Route::get('/citylist/', 'CityListController@index');
 
 Route::get('/indexlist/', 'IndexListController@index');
+
+Route::group(['prefix' => 'ajax'], function(){
+	Route::get('update', 'AjaxController@update');
+});
